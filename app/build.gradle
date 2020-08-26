@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.omi.pharmacy"
+        minSdkVersion 23
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        devconfig {
+            keyAlias 'debug'
+            keyPassword 'OmiPharmacy2018'
+            storeFile file('../keystore/dev.keystore')
+            storePassword 'OmiPharmacy2018'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        dev {
+            applicationIdSuffix = ".dev"
+            resValue "string", "app_name", "Pharmacy"
+            buildConfigField "String", "BASE_URL", '""'
+            debuggable true
+            signingConfig signingConfigs.devconfig
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+    implementation "com.android.support:support-vector-drawable:$rootProject.ext.supportLibraryVersion"
+    implementation "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //multidex
+    implementation "com.android.support:multidex:1.0.3"
+
+    //Refresh layout
+    implementation "com.lcodecorex:tkrefreshlayout:1.0.7"
+
+    //Networking
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpVersion"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.okHttpVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.ext.rxKotlinVersion"
+
+    //Image
+    implementation "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
+    implementation("com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.glideOkHttpVersion") {
+        exclude group: 'glide-parent'
+    }
+
+    implementation("com.facebook.android:facebook-login:$rootProject.ext.facebookSdkVersion") {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+
+        implementation 'com.yarolegovich:discrete-scrollview:1.3.2'
+
+        //facebook sdk
+        implementation "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
+        implementation "com.android.support:customtabs:$rootProject.ext.supportLibraryVersion"
+        implementation "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
+        exclude group: 'com.android.support', module: 'cardview-v7'
+        exclude group: 'com.android.support', module: 'customtabs'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    }
+}

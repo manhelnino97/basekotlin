@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Pharmacy</string>
+    <string name="ok">OK</string>
+
+    <!--Alert-->
+    <string name="network_error">Lỗi kết nối</string>
+    <string name="LOGIN_FAILED">Login thất bại</string>
+
+    <!--button title-->
+    <string name="login_facebook">Login Facebook</string>
+</resources>
